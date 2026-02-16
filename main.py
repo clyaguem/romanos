@@ -34,11 +34,15 @@ class RomanNumberError(Exception):
 def romano_a_entero(romano:str)->int:
     list_romano = list(romano) #Transformamos el número romano de la variable en lista para poder recorrerlo y manipularlo después
     valor_entero = 0 #Guarda los resultados obtenidos con cada vuelta del for
-    for i in list_romano: 
-        valor_entero = valor_entero + diccionario_romano_a_entero.get(i) #Realiza la suma de los valores recorridos
+    for i in range(0,len(list_romano)): 
+        if i == 0:
+            if diccionario_romano_a_entero.get(list_romano[i]) < diccionario_romano_a_entero.get(list_romano [i+1]):
+                valor_entero = diccionario_romano_a_entero.get(list_romano[i+1]) - diccionario_romano_a_entero.get(list_romano[i])
+        else:        
+            valor_entero = valor_entero + diccionario_romano_a_entero.get(list_romano[i])
     
     return valor_entero
-print(romano_a_entero("III"))
+print(romano_a_entero("IV"))
 
 
 

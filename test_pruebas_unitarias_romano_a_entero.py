@@ -5,3 +5,6 @@ def test_romano_entero_I():
 
 def test_romano_entero_MDCCXIII():
     assert romano_a_entero("MDCCXIII") == 1713
+
+def test_romano_entero_IV():
+    assert romano_a_entero("IV") == 4
