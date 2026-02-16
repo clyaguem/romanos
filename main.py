@@ -36,16 +36,18 @@ class RomanNumberError(Exception):
 
 # a) 1994 -> MCMXCIV
 def entero_a_romano(numero):
-    numero = str(numero) #Transformamos en cadena el valor 1994 para poder descomponerlo
+     #numero = str(numero) #Transformamos en cadena el valor 1994 para poder descomponerlo
+    numero = "{:0>4d}".format(numero)
+    """
     if len(numero) == 3: #Si la longitud de número es igual a 3
         numero = "0" + numero #Añade un 0 delante del número
     elif len(numero) == 2: #Si la longitud de número es igual a 2
         numero = "00" + numero #Añade dos 0 delante del número
     elif len(numero) == 1: #Si la longitud de número es igual a 1
         numero = "000" + numero #Añade tres 0 delante del número
-
+    """
     numero_list = list(numero) #Guardardamos en una lista la cadena resultante del paso anterior ["1","9","9","4"]
-    valor_romano = " " #Guarda los resultados obtenidos con cada vuelta del while
+    valor_romano = "" #Guarda los resultados obtenidos con cada vuelta del while
     contador = 0
     valor_num = 1000
 
