@@ -29,3 +29,18 @@ def test_romano_entero_no_repetir_3_veces04():
     with pytest.raises(RomanNumberError) as exceptionInfo:
         romano_a_entero("MMMM")
     assert str(exceptionInfo.value) == "No se puede repetir el mismo valor más de tres veces"    
+
+def test_romano_a_entero_no_repetir_01():
+    with pytest.raises(RomanNumberError) as exceptionInfo:
+        romano_a_entero("DD")
+    assert str(exceptionInfo.value) == "Los caracteres 'D', 'L' y 'V' no se pueden repetir"
+
+def test_romano_a_entero_no_repetir_02():
+    with pytest.raises(RomanNumberError) as exceptionInfo:
+        romano_a_entero("LL")
+    assert str(exceptionInfo.value) == "Los caracteres 'D', 'L' y 'V' no se pueden repetir"
+
+def test_romano_a_entero_no_repetir_03():
+    with pytest.raises(RomanNumberError) as exceptionInfo:
+        romano_a_entero("VV")
+    assert str(exceptionInfo.value) == "Los caracteres 'D', 'L' y 'V' no se pueden repetir"
