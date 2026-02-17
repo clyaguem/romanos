@@ -28,7 +28,7 @@ diccionario_entero_a_romano = {
 """
 Clase: molde o estructura de código donde dentro se pueden guardar varias funciones y variables
 """
-class RomanNumberError( Exception ):
+class RomanNumberError(Exception):
     pass
 
 def romano_a_entero(romano:str)->int:
@@ -41,7 +41,7 @@ def romano_a_entero(romano:str)->int:
         if caracter == caracter_anterior:
 
             if caracter == "D" or caracter == "L" or caracter == "V": #Si el caracter actual es igual que el caracter anterior
-                raise RomanNumberError("Los caracteres 'D', 'L' y 'V' no se pueden repetir")
+                raise RomanNumberError("Los caracteres 'D', 'L' y 'V' no se pueden repetir") #Lanza el siguiente error
 
             contador_repeticiones += 1 #Suma uno al contador de repeticiones
             if contador_repeticiones > 2: #Si el acumulado del contador de repeticiones es mayor a 2
@@ -51,6 +51,13 @@ def romano_a_entero(romano:str)->int:
             contador_repeticiones = 0 #Si el caracter actual es distinto al caracter anterior, pone el contador a 0
 
         if diccionario_romano_a_entero.get(caracter_anterior,0) < diccionario_romano_a_entero.get(caracter,0): #Si el caracter anteriro es menor al caracter actual
+
+            
+
+
+
+
+
             valor_entero -= diccionario_romano_a_entero.get(caracter_anterior,0)*2 # valor entero es igual a valor entero menos caracter anterior por 2(siempre entra entra el la variable al menos 2 veces)
 
         caracter_anterior = caracter #La variable caracter anterior se sobreescribe con el caracter actual
@@ -58,7 +65,7 @@ def romano_a_entero(romano:str)->int:
 
     return valor_entero
 
-#print(romano_a_entero('CCCC'))
+print(romano_a_entero('VV'))
 
 
 
