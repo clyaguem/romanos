@@ -20,3 +20,10 @@ def myException():
       raise IndexError("Esta es mi excepción customizada") #Genero una excepción
 
 myException()
+diccionario = { "Jose":10,"Maria":20,"Pedro":15}
+#print("Maria: ",diccionario.get(20,""))
+
+valor= 'X'    
+
+if valor in 'VLD':
+    print("si se encuentra")

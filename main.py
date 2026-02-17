@@ -28,6 +28,9 @@ diccionario_entero_a_romano = {
 """
 Clase: molde o estructura de código donde dentro se pueden guardar varias funciones y variables
 """
+
+regla_restas = {"I":("V", "X"), "X":("L", "C"), "C": ("D", "M")}
+
 class RomanNumberError(Exception):
     pass
 
@@ -36,42 +39,52 @@ def romano_a_entero(romano:str)->int:
     valor_entero = 0 #Guarda los resultados obtenidos con cada vuelta del for
     caracter_anterior = "" #Variable para comparar caracteres de la posición actual con la anterior
     contador_repeticiones = 0 #Contador para calcular la cantidad de repeticiones de carácteres
+    caracter_ante_anterior = "" #
 
     for caracter in list_romano:
         if caracter == caracter_anterior:
 
             if caracter == "D" or caracter == "L" or caracter == "V": #Si el caracter actual es igual que el caracter anterior
-                raise RomanNumberError("Los caracteres 'D', 'L' y 'V' no se pueden repetir") #Lanza el siguiente error
+                raise RomanNumberError("Los caracteres 'D' 'L' y 'V' no se pueden repetir") #Lanza el siguiente error
 
             contador_repeticiones += 1 #Suma uno al contador de repeticiones
             if contador_repeticiones > 2: #Si el acumulado del contador de repeticiones es mayor a 2
-                raise RomanNumberError("No se puede repetir el mismo valor más de tres veces") #Lanza el siguiente error
+                raise RomanNumberError("No se puede repetir el valor mas de tres veces") #Lanza el siguiente error
        
         else:
             contador_repeticiones = 0 #Si el caracter actual es distinto al caracter anterior, pone el contador a 0
 
-        if diccionario_romano_a_entero.get(caracter_anterior,0) < diccionario_romano_a_entero.get(caracter,0): #Si el caracter anteriro es menor al caracter actual
+        if caracter_anterior and diccionario_romano_a_entero.get(caracter_anterior,0) < diccionario_romano_a_entero.get(caracter,0): #Si el caracter no es un str vacío y el caracter anterior es menor al caracter actual, entra a la regla de las restas
 
-            
+            if caracter_anterior in "VLD": #Si el caracter anterior está en "VLD", lanza error
+                raise RomanNumberError("V, L y D nunca se pueden restar")
 
-
-
+            if caracter not in regla_restas[caracter_anterior]: 
+                raise RomanNumberError(f"{caracter_anterior} solo se puede restar de {regla_restas[caracter_anterior][0]} y {regla_restas[caracter_anterior][1]}")
 
 
             valor_entero -= diccionario_romano_a_entero.get(caracter_anterior,0)*2 # valor entero es igual a valor entero menos caracter anterior por 2(siempre entra entra el la variable al menos 2 veces)
 
+            if (caracter_anterior == caracter_ante_anterior) and caracter_anterior in "IXC": 
+                raise RomanNumberError("I,X,C ya no pueden restarse porque tienen dos repeticiones") 
+
+        caracter_ante_anterior = caracter_anterior
         caracter_anterior = caracter #La variable caracter anterior se sobreescribe con el caracter actual
         valor_entero += diccionario_romano_a_entero.get(caracter,0) #A valor entero se le sumpa el valor del caracter actual
 
     return valor_entero
 
-print(romano_a_entero('VV'))
-
+#print(romano_a_entero('IIX'))
 
 
 
 
 def entero_a_romano(numero:int)->str:
+    if numero < 0 or numero > 3999:
+        raise RomanNumberError("El limite esta entre mayor a 0 y 3999")
+    
+    if numero == 0:
+        return ""
     numero = "{:0>4d}".format(numero) #significa{:agregame 0 delante del (número), dicho (número) tiene que tener 4 de longitud y tiene que ser decimal entero}
     numero_list = list(numero) #Guardardamos en una lista la cadena resultante del paso anterior ["1","9","9","4"]
     valor_romano = "" #Guarda los resultados obtenidos con cada vuelta del while
@@ -87,4 +100,4 @@ def entero_a_romano(numero:int)->str:
     
     return valor_romano
 
-
+print(entero_a_romano(0))
