@@ -74,11 +74,6 @@ def romano_a_entero(romano:str)->int:
 
     return valor_entero
 
-#print(romano_a_entero('IIX'))
-
-
-
-
 def entero_a_romano(numero:int)->str:
     if numero < 0 or numero > 3999: #Ponemos el límite estipulado, solo se puede llegar a 3999, si es mayor lanza error
         raise RomanNumberError("El limite esta entre mayor a 0 y 3999")
