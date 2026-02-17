@@ -28,23 +28,32 @@ diccionario_entero_a_romano = {
 """
 Clase: molde o estructura de código donde dentro se pueden guardar varias funciones y variables
 """
-class RomanNumberError(Exception):
+class RomanNumberError( Exception ):
     pass
 
 def romano_a_entero(romano:str)->int:
     list_romano = list(romano) #Transformamos el número romano de la variable en lista para poder recorrerlo y manipularlo después
     valor_entero = 0 #Guarda los resultados obtenidos con cada vuelta del for
-    for i in range(0,len(list_romano)): 
-        if i != 0: #No compara la primera posición, entra si es distinta a la posición 0
-            if diccionario_romano_a_entero.get(list_romano[i-1]) < diccionario_romano_a_entero.get(list_romano[i]): #Si la posición anterior es menor que la posición actual
-                valor_entero = diccionario_romano_a_entero.get(list_romano[i]) - diccionario_romano_a_entero.get(list_romano[i-1]) #Valor entero es la resta de la posición actual menos la posición anterior
-            else:
-                valor_entero += diccionario_romano_a_entero.get(list_romano[i]) #Si la posición es anterior es mayor a la posición actual
-        else:        
-            valor_entero += diccionario_romano_a_entero.get(list_romano[i])
-    
+    caracter_anterior = "" #Variable para comparar caracteres de la posición actual con la anterior
+    contador_repeticiones = 0 #Contador para calcular la cantidad de repeticiones de carácteres
+
+    for caracter in list_romano:
+        if caracter == caracter_anterior: #Si el caracter actual es igual que el caracter anterior
+            contador_repeticiones += 1 #Suma uno al contador de repeticiones
+            if contador_repeticiones > 2: #Si el acumulado del contador de repeticiones es mayor a 2
+                raise RomanNumberError("No se puede repetir el mismo valor más de tres veces") #Lanza el siguiente error
+        else:
+            contador_repeticiones = 0 #Si el caracter actual es distinto al caracter anterior, pone el contador a 0
+
+        if diccionario_romano_a_entero.get(caracter_anterior,0) < diccionario_romano_a_entero.get(caracter,0): #Si el caracter anteriro es menor al caracter actual
+            valor_entero -= diccionario_romano_a_entero.get(caracter_anterior,0)*2 # valor entero es igual a valor entero menos caracter anterior por 2(siempre entra entra el la variable al menos 2 veces)
+
+        caracter_anterior = caracter #
+        valor_entero += diccionario_romano_a_entero.get(caracter,0)
+
     return valor_entero
-print(romano_a_entero("IV"))
+
+print(romano_a_entero("CCCC"))
 
 
 
