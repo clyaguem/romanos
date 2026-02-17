@@ -80,10 +80,10 @@ def romano_a_entero(romano:str)->int:
 
 
 def entero_a_romano(numero:int)->str:
-    if numero < 0 or numero > 3999:
+    if numero < 0 or numero > 3999: #Ponemos el límite estipulado, solo se puede llegar a 3999, si es mayor lanza error
         raise RomanNumberError("El limite esta entre mayor a 0 y 3999")
     
-    if numero == 0:
+    if numero == 0: #Si el número es 0, devuelve cadena vacía
         return ""
     numero = "{:0>4d}".format(numero) #significa{:agregame 0 delante del (número), dicho (número) tiene que tener 4 de longitud y tiene que ser decimal entero}
     numero_list = list(numero) #Guardardamos en una lista la cadena resultante del paso anterior ["1","9","9","4"]
@@ -99,5 +99,3 @@ def entero_a_romano(numero:int)->str:
 
     
     return valor_romano
-
-print(entero_a_romano(0))
